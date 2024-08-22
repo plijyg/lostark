@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+#header { position: absolute; left: 0; top: 0; }
+
+.sub_visual { text-align: center; background: url(../img/Privacy/sv_cs.jpg) no-repeat center / cover; padding: 329px 0; line-height: 1.4; }
+
+.sub_visual h2 { font-size: 4rem; font-weight: 700; color: #003296; margin-bottom: 20px; }
+.sub_visual .sub_p { font-size: 2.4rem; color: #000; font-weight: 700; margin-bottom: 10px; }
+.sub_visual p:nth-of-type(2) { font-size: 2rem; font-weight: 400; color: #000; margin-bottom: 10px; }
+
+.contents form fieldset { display: flex; justify-content: center; align-items: center; margin-top: 50px; }
+.contents form input[type="text"] { padding-left: 20px; width: 500px; height: 64px; font-size: 2rem; color: #fff; background-color: #3e465a; }
+.contents form input[type="submit"] {  background: url(../img/Privacy/search1_w.png) no-repeat center; background-color: #3e465a; width: 64px; height: 64px; font-size: 0; cursor: pointer; }
+.contents form input::placeholder { color: #fff;}
+
+@media (max-width:768px) {
+    .sub_visual h2 { font-size: 3.5rem; }
+    .sub_visual .sub_p { font-size: 2rem; }
+    .sub_visual p:nth-of-type(2) { font-size: 1.4rem; }
+    .contents form fieldset { margin-top: 20px; }
+    .contents form input[type="text"] { width: 300px; height: 50px; font-size: 1.4rem; }
+    .contents form input[type="submit"] { width: 45px; height: 50px; }
+}
