@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0">
+    <title>lostark</title>
+    <link rel="shortcut icon" href="lostark_favicon.png" type="image/x-icon">
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://webfontworld.github.io/heiroflight/HeirofLight.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- css -->
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/jquery.fullPage.css">
+    <link rel="stylesheet" href="css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- js -->
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/jquery.fullPage.js"></script>
+    <script src="js/swiper-bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script class="remove">
+        function isMobile() {
+            var agent = window.navigator.userAgent;
+            var d = document;
+            var e = d.documentElement;
+            var g = d.getElementsByTagName('body')[0];
+            var deviceWidth = window.innerWidth || e.clientWidth || g.clientWidth;
+
+            // Chrome
+            IsChromeApp = window.chrome && chrome.app && chrome.app.runtime;
+
+            // iPhone
+            IsIPhone = agent.match(/iPhone/i) != null;
+
+            // iPad up to IOS12
+            IsIPad = (agent.match(/iPad/i) != null) || ((agent.match(/iPhone/i) != null) && (deviceWidth > 750)); // iPadPro when run with no launch screen can have error in userAgent reporting as an iPhone rather than an iPad. iPadPro width portrait 768, iPhone6 plus 414x736 but would probably always report 414 on app startup
+
+            if (IsIPad) IsIPhone = false;
+
+            // iPad from IOS13
+            var macApp = agent.match(/Macintosh/i) != null;		// need to distinguish between Macbook and iPad
+            var canvas = macApp ? document.createElement("canvas") : null;
+            var context = canvas != null ? canvas.getContext("webgl") || canvas.getContext("experimental-webgl") : undefined;
+            var info = context ? context.getExtension("WEBGL_debug_renderer_info") : undefined;
+            if (info) {
+                const renderer = context.getParameter(info.UNMASKED_RENDERER_WEBGL);
+                const _isApple = renderer.indexOf("Apple") != -1;
+                const _isTouchable = navigator.maxTouchPoints > 1;
+
+                IsIPad = _isApple && _isTouchable;
+            }
+
+            // IOS
+            IsIOSApp = IsIPad || IsIPhone;
+
+            // Android
+            IsAndroid = agent.match(/Android/i) != null;
+            IsAndroidPhone = IsAndroid && deviceWidth <= 960;
+            IsAndroidTablet = IsAndroid && !IsAndroidPhone;
+            isFold1 = agent.match(/sm-f907/i) != null;
+
+            message = "";
+
+            if (IsIPhone) {
+                //message = "Device is IsIPhone"
+            }
+            else if (IsIPad) {
+                message = "Device is ipad";
+            } else if (IsAndroidTablet || IsAndroidPhone || IsAndroid) {
+                //message = "Device is Android"
+            } else {
+                //message = "Device is Mac ||  Windows Desktop"
+            }
+
+            return {
+                message: message,
+                isTrue: IsIOSApp || IsAndroid || IsAndroidTablet || IsAndroidPhone || IsIPad || isFold1,
+                IsIPad: IsIPad
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="mgnb_wrap">
+        <ul class="mgnb">
+            <li><a href="sub/news.html">새소식</a>
+                <ul class="mdepth2">
+                    <li><a href="sub/news.html">공지사항</a></li>
+                    <li><a href="sub/news.html">업데이트</a></li>
+                    <li><a href="sub/news.html">이벤트</a></li>
+                    <li><a href="sub/news.html">리샤의 편지</a></li>
+                </ul>
+            </li>
+
+            <li><a href="sub/Privacy.html">개인정보</a>
+                <ul class="mdepth2">
+                    <li><a href="sub/Privacy.html">전투정보실</a></li>
+                    <li><a href="sub/Privacy.html">세계관</a></li>
+                    <li><a href="sub/Privacy.html">클래스</a></li>
+                    <li><a href="sub/Privacy.html">콘텐츠</a></li>
+                    <li><a href="sub/Privacy.html">월드맵</a></li>
+                </ul>
+            </li>
+
+            <li><a href="sub/Guide.html">가이드</a>
+                <ul class="mdepth2">
+                    <li><a href="sub/Guide.html">게임 가이드</a></li>
+                    <li><a href="sub/Guide.html">아이템 사전</a></li>
+                    <li><a href="sub/Guide.html">확률 정보 공개</a></li>
+                </ul>
+            </li>
+
+            <li><a href="sub/exchange.html">거래소</a>
+                <ul class="mdepth2">
+                    <li><a href="sub/exchange.html">거래소</a></li>
+                    <li><a href="sub/exchange.html">경매장</a></li>
+                </ul>
+            </li>
+
+            <li><a href="sub/Service.html">고객센터</a>
+                <ul class="mdepth2">
+                    <li><a href="sub/Service.html">FAQ</a></li>
+                    <li><a href="sub/Service.html">신고센터</a></li>
+                    <li><a href="sub/Service.html">보안서비스</a></li>
+                    <li><a href="sub/Service.html">클라이언트</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="mgnb_close"><i class="bi bi-x-lg" aria-label="메뉴닫기"></i></div>
+    </div>
+
+    <header id="header">
+        <div class="inner">
+            <h1><a href="index.html"><img src="img/main/logo_w.png" alt="lostark"></a></h1>
+
+            <nav>
+                <ul class="gnb">
+                    <li><a href="sub/news.html">새소식</a>
+                        <ul class="depth2">
+                            <li><a href="sub/news.html">공지사항</a></li>
+                            <li><a href="sub/news.html">업데이트</a></li>
+                            <li><a href="sub/news.html">이벤트</a></li>
+                            <li><a href="sub/news.html">리샤의 편지</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="sub/Privacy.html">개인정보</a>
+                        <ul class="depth2">
+                            <li><a href="sub/Privacy.html">전투정보실</a></li>
+                            <li><a href="sub/Privacy.html">세계관</a></li>
+                            <li><a href="sub/Privacy.html">클래스</a></li>
+                            <li><a href="sub/Privacy.html">콘텐츠</a></li>
+                            <li><a href="sub/Privacy.html">월드맵</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="sub/Guide.html">가이드</a>
+                        <ul class="depth2">
+                            <li><a href="sub/Guide.html">게임 가이드</a></li>
+                            <li><a href="sub/Guide.html">아이템 사전</a></li>
+                            <li><a href="sub/Guide.html">확률 정보 공개</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="sub/exchange.html">거래소</a>
+                        <ul class="depth2">
+                            <li><a href="sub/exchange.html">거래소</a></li>
+                            <li><a href="sub/exchange.html">경매장</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="sub/Service.html">고객센터</a>
+                        <ul class="depth2">
+                            <li><a href="sub/Service.html">FAQ</a></li>
+                            <li><a href="sub/Service.html">신고센터</a></li>
+                            <li><a href="sub/Service.html">보안서비스</a></li>
+                            <li><a href="sub/Service.html">클라이언트</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- gnb -->
+
+                <div class="ham">
+                    <i class="bi bi-list" aria-label="모바일 메뉴보기"></i>
+                </div>
+            </nav>
+            <!-- nav -->
+            <ul class="util">
+                <li><a href="#">LOGIN</a></li>
+                <li><a href="#">PC방 OFF</a></li>
+                <li><a href="#"><img src="img/main/header_gamestart.jpg" alt="게임 스타트"></a></li>
+            </ul>
+        </div>
+        <!-- inner -->
+        <div class="depth2_bg"></div>
+    </header>
+    <!-- header -->
+
+    <div id="fullpage">
+        <section data-menuanchor="menu1" id="mv" class="section">
+            <video src="img/main/main_video.mp4" autoplay muted loop playsinline data-autoplay></video>
+
+            <div class="mv_txt">
+                <h3>블록버스터 MMORPG</h3>
+                <h4>로스트아크</h4>
+                <p>WITH ALL RPG FANS</p>
+            </div>
+
+            <div class="pointer">
+                <p class="scroll"><span class="line"></span>스크롤</p>
+            </div>
+
+        </section>
+
+        <section data-menuanchor="menu2" id="news" class="section">
+            <div class="inner">
+                <div class="sec_title">
+                    <h2>NEWS</h2>
+                </div>
+
+                <ul>
+                    <li>
+                        <div class="front">에키드나</div>
+                        <dl class="back">
+                            <dt>욕망의 주인 에키드나</dt>
+                            <dd>오래전 욕망군단장으로 군림했던 에키드나는 그녀를 따르던 비아키스의 배신으로 페트라니아에서 자취를 감추었습니다. 그러나 현재, 죽은 줄 알았던 에키드나가
+                                아크라시아에 모습을 드러냈습니다. 더욱 깊어진 향기와 거부할 수 없는 매혹적인 모습으로...! 에키드나가 피어낸 황홀한 욕망에 물들지 않고, 휘몰아치는 쾌락을
+                                버텨낼 수 있다면 연꽃 향으로부터 피어난 진정한 욕망과 마주하게 될 것입니다.</dd>
+                        </dl>
+                    </li>
+
+                    <li>
+                        <div class="front">엘가시아</div>
+                        <dl class="back">
+                            <dt>천공의 대륙, <br> 엘가시아의 문이 열립니다.</dt>
+                            <dd>이 골이 바로 라제니스의 모든 철학과 믿음 속죄가 모인 엘가시아의 도시 '아리안오브'입니다. 지상의 대륙들과 다르게 라제니스의 신비한 힘 만으로 운영되는
+                                아름다운 도시였습니다.</dd>
+                        </dl>
+                    </li>
+
+                    <li>
+                        <div class="front">브레이커</div>
+                        <dl class="back">
+                            <dt>한번 손에 쥔 건 놓치지 않지, <br> 천명마저도!</dt>
+                            <dd>브레이커는 우수한 기동성과 강력한 한방을 보유한 클래스입니다. 공격 포지션을 자유롭게 선택할 수 있으며, 여러가지 콤보를 사용해 몰아치는 전투를 기대해 볼 수
+                                있습니다. 기력/충격/투지 에너지 브레이커가 사용하는 기력과 충격 에너지는 상호 보완되는 형태를 취합니다. 기력 스킬을 사용하게 되면 기력 게이지가 감소하는
+                                대신 충격 에너지가 증가하고, 충격 스킬을 사용하면 충격 에너지가 감소하는 대신 기력 에너지가 증가되는 형태입니다.</dd>
+                        </dl>
+                    </li>
+                </ul>
+
+                <div class="btn_more"><a href="#">소식 보기</a></div>
+
+            </div>
+            <!-- inner -->
+        </section>
+        <!-- news -->
+
+        <section data-menuanchor="menu3" id="class" class="section">
+            <div class="inner">
+                <div class="sec_title">
+                    <h2>CLASS</h2>
+                </div>
+                <div class="class_list">
+                    <ul>
+                        <li class="btn1">
+                            <a href="#">
+                                <img src="img/main/class_ikon_01.png" alt="브레이커 아이콘">
+                                <img src="img/main/class_ikon_01_w.png" alt="">
+                            </a>
+                        </li>
+
+                        <li class="btn2">
+                            <a href="#">
+                                <img src="img/main/class_ikon_02.png" alt="블레이드 아이콘">
+                                <img src="img/main/class_ikon_02_w.png" alt="">
+                            </a>
+                        </li>
+
+                        <li class="btn3">
+                            <a href="#">
+                                <img src="img/main/class_ikon_03.png" alt="소서리스 아이콘">
+                                <img src="img/main/class_ikon_03_w.png" alt="">
+                            </a>
+                        </li>
+
+                        <li class="btn4">
+                            <a href="#">
+                                <img src="img/main/class_ikon_04.png" alt="워로드 아이콘">
+                                <img src="img/main/class_ikon_04_w.png" alt="">
+                            </a>
+                        </li>
+
+                        <li class="btn5">
+                            <a href="#">
+                                <img src="img/main/class_ikon_05.png" alt="리퍼 아이콘">
+                                <img src="img/main/class_ikon_05_w.png" alt="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <ul class="class_title">
+
+                    <li class="open1">
+                        <div class="class_img">
+                            <div class="class_left">
+                                <div class="class_txt">
+                                    <h3>브레이커</h3>
+                                    <p>‘한번 손에 쥔 건 놓치지 않지, 천명마저도!’</p>
+                                    <div class="more">
+                                        <div class="btn_more"><a href="#">클래스 보기</a></div>
+                                        <div class="btn_more"><a href="#">영상 보기</a></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="class_right">
+                                <img src="img/main/class_01.jpg" alt="브레이커">
+                            </div>
+                        </div>
+                        <!-- class_Breaker -->
+                    </li>
+
+                    <li class="open2">
+                        <div class="class_img">
+                            <div class="class_left">
+                                <div class="class_txt">
+                                    <h3>블레이드</h3>
+                                    <p>‘내재된 악마성을 절제하며, 혼돈의 검을 휘두르는 자!’</p>
+                                    <div class="more">
+                                        <div class="btn_more"><a href="#">클래스 보기</a></div>
+                                        <div class="btn_more"><a href="#">영상 보기</a></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="class_right">
+                                <img src="img/main/class_02.jpg" alt="블레이드">
+                            </div>
+                        </div>
+                        <!-- class_Breaker -->
+                    </li>
+
+                    <li class="open3">
+                        <div class="class_img">
+                            <div class="class_left">
+                                <div class="class_txt">
+                                    <h3>소서리스</h3>
+                                    <p>‘자연의 섭리를 깨달은 자, 전장을 지배하리라! ’</p>
+                                    <div class="more">
+                                        <div class="btn_more"><a href="#">클래스 보기</a></div>
+                                        <div class="btn_more"><a href="#">영상 보기</a></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="class_right">
+                                <img src="img/main/class_03.jpg" alt="소서리스">
+                            </div>
+                        </div>
+                        <!-- class_Breaker -->
+                    </li>
+
+                    <li class="open4">
+                        <div class="class_img">
+                            <div class="class_left">
+                                <div class="class_txt">
+                                    <h3>워로드</h3>
+                                    <p>‘다시는 동료를 잃지 않겠다.’</p>
+                                    <div class="more">
+                                        <div class="btn_more"><a href="#">클래스 보기</a></div>
+                                        <div class="btn_more"><a href="#">영상 보기</a></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="class_right">
+                                <img src="img/main/class_04.jpg" alt="워로드">
+                            </div>
+                        </div>
+                        <!-- class_Breaker -->
+                    </li>
+
+                    <li class="open5">
+                        <div class="class_img">
+                            <div class="class_left">
+                                <div class="class_txt">
+                                    <h3>리퍼</h3>
+                                    <p>‘... 그림자는 소리를 내지 않는 법이지’</p>
+                                    <div class="more">
+                                        <div class="btn_more"><a href="#">클래스 보기</a></div>
+                                        <div class="btn_more"><a href="#">영상 보기</a></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="class_right">
+                                <img src="img/main/class_05.jpg" alt="리퍼">
+                            </div>
+                        </div>
+                        <!-- class_Breaker -->
+                    </li>
+                </ul>
+                <!-- class_title -->
+            </div>
+        </section>
+
+        <section data-menuanchor="menu3" id="video" class="section">
+            <div class="inner">
+                <div class="sec_title">
+                    <h2>VIDEO</h2>
+                </div>
+
+                <div class="swiper video_txt_list">
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_01.jpg" alt="">
+                                    <h3>8분만에 끝내는 베히모스 <br> 초간단 공략!</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_02.jpg" alt="">
+                                    <h3>신상입고! 2024 1st <br> 네리아의 드레스룸</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_03.jpg" alt="">
+                                    <h3>모코코와 신나게 노라바바! <br> 모코코 생일 이벤트</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_04.jpg" alt="">
+                                    <h3>카제로스 레이드 <br> 욕망의 주인 에키드나</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_05.jpg" alt="">
+                                    <h3>엘릭서 한방 정리 <br>(초보자분들 필독! / 심화 과정 포함)</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_06.jpg" alt="">
+                                    <h3>정말 많이 물어보는 <br> '1580이후 방향성' 영상 하나면 끝!</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_07.jpg" alt="">
+                                    <h3>[로스트아크] <br> 모코코 버거파티 with 프랭크 버거</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_08.jpg" alt="">
+                                    <h3>아크패스, <br> 영원의 수호자 세트</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_09.jpg" alt="">
+                                    <h3>경배하라 어둠의 주인을 <br> 어둠의 지배자 "카멘"</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_10.jpg" alt="">
+                                    <h3>마수군단장 <br> 익스트림 발탄!</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_11.jpg" alt="">
+                                    <h3>[로스트아크] <br> 슈퍼 모코코 익스프레스 가이드</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_12.jpg" alt="">
+                                    <h3>모험가 여러분! <br> 4주년 함께 해주셔서 감사합니다</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_13.jpg" alt="">
+                                    <h3>[로스트아크] <br> 신규 클래스 -기상술사-</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_14.jpg" alt="">
+                                    <h3>허락 없이는 접근할 수 없는 성역 <br> 어비스 던전 카양겔</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_15.jpg" alt="">
+                                    <h3>실리안&니나브 <br> 호감도 애정 등급 추가!</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="video_txt">
+                                    <img src="img/main/video_16.jpg" alt="">
+                                    <h3>아크라시아에서 발견된 수상한 독기 <br> 신규 대륙 쿠르잔 남부</h3>
+                                    <p>LOST ARK</p>
+                                </div>
+                            </a>
+                        </div>
+
+
+
+                    </div>
+                    <!-- swiper-wrapper -->
+                </div>
+                <!-- swiper video_txt_list -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+            <!-- inner -->
+        </section>
+        <!-- video -->
+
+        <footer id="footer" class="section fp-auto-height">
+            <div class="inner">
+                <div class="footer_list">
+                    <div class="footer_logo">
+                        <img src="img/main/logo_w.png" alt="">
+                    </div>
+
+                    <div class="footer_txt">
+                        <ul class="footer_link">
+                            <li><a href="#">회사소개</a></li>
+                            <li><a href="#">이용약관</a></li>
+                            <li><a href="#">개인정보처리방침</a></li>
+                            <li><a href="#">운영청책</a></li>
+                            <li><a href="#">이벤트&UGC규약</a></li>
+                            <li><a href="#">청소년보호정책</a></li>
+                            <li><a href="#">게임이용등급</a></li>
+                            <li><a href="#">고객센터</a></li>
+                            <li><a href="#">제휴문의</a></li>
+                        </ul>
+
+                        <address>
+                            회사명. (주)스마일게이트 알피지 대표이사. 지원길 사업자등록번호. 220-88-29249 <br> 통신판매업 신고번호. 제2017-성남붙당-0904호 E.
+                            lostark@smilegate.com F. 031-627-0400
+                        </address>
+
+                        <div class="copy">
+                            @ Smilegate RPG All rights reserved.
+                        </div>
+                    </div>
+                    <!-- footer_txt -->
+                </div>
+                <!-- footer_list -->
+            </div>
+            <!-- inner -->
+        </footer>
+        <!-- footer -->
+    </div>
+    <!-- fullpage -->
+
+    <script>
+        $(document).ready(function () {
+            $('#fullpage').fullpage({
+                //options here
+                anchors: ['menu1', 'menu2', 'menu3', 'menu4'],
+                navigation: true,
+                navigationPosition: 'left',
+                navigationTooltips: ['로스트아크', '최신 소식', '신규 직업', '추천영상'],
+                showActiveTooltip: true, // 스크롤시 해당 글자 노출
+                responsiveWidth: 1024, // 반응형 옵션 1024이하에서 기본 스크롤로 변경
+                autoScrolling: true,
+                scrollHorizontally: true,
+                onLeave: function (origin, destination, direction, trigger) {
+
+                    //구역 5를 떠난 후
+                    if (destination == 5) {
+                        $("#fp-nav").fadeOut();
+                    } else {
+                        $("#fp-nav").fadeIn();
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script class="remove">
+        function isMobile() {
+            var agent = window.navigator.userAgent;
+            var d = document;
+            var e = d.documentElement;
+            var g = d.getElementsByTagName('body')[0];
+            var deviceWidth = window.innerWidth || e.clientWidth || g.clientWidth;
+
+            // Chrome
+            IsChromeApp = window.chrome && chrome.app && chrome.app.runtime;
+
+            // iPhone
+            IsIPhone = agent.match(/iPhone/i) != null;
+
+            // iPad up to IOS12
+            IsIPad = (agent.match(/iPad/i) != null) || ((agent.match(/iPhone/i) != null) && (deviceWidth > 750)); // iPadPro when run with no launch screen can have error in userAgent reporting as an iPhone rather than an iPad. iPadPro width portrait 768, iPhone6 plus 414x736 but would probably always report 414 on app startup
+
+            if (IsIPad) IsIPhone = false;
+
+            // iPad from IOS13
+            var macApp = agent.match(/Macintosh/i) != null;		// need to distinguish between Macbook and iPad
+            var canvas = macApp ? document.createElement("canvas") : null;
+            var context = canvas != null ? canvas.getContext("webgl") || canvas.getContext("experimental-webgl") : undefined;
+            var info = context ? context.getExtension("WEBGL_debug_renderer_info") : undefined;
+            if (info) {
+                const renderer = context.getParameter(info.UNMASKED_RENDERER_WEBGL);
+                const _isApple = renderer.indexOf("Apple") != -1;
+                const _isTouchable = navigator.maxTouchPoints > 1;
+
+                IsIPad = _isApple && _isTouchable;
+            }
+
+            // IOS
+            IsIOSApp = IsIPad || IsIPhone;
+
+            // Android
+            IsAndroid = agent.match(/Android/i) != null;
+            IsAndroidPhone = IsAndroid && deviceWidth <= 960;
+            IsAndroidTablet = IsAndroid && !IsAndroidPhone;
+            isFold1 = agent.match(/sm-f907/i) != null;
+
+            message = "";
+
+            if (IsIPhone) {
+                //message = "Device is IsIPhone"
+            }
+            else if (IsIPad) {
+                message = "Device is ipad";
+            } else if (IsAndroidTablet || IsAndroidPhone || IsAndroid) {
+                //message = "Device is Android"
+            } else {
+                //message = "Device is Mac ||  Windows Desktop"
+            }
+
+            return {
+                message: message,
+                isTrue: IsIOSApp || IsAndroid || IsAndroidTablet || IsAndroidPhone || IsIPad || isFold1,
+                IsIPad: IsIPad
+            }
+        }
+    </script>
+</body>
+
+</html>
